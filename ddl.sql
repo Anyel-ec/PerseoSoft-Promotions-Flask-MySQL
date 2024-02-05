@@ -9,25 +9,6 @@ CREATE TABLE Productos (
     Descripcion TEXT,
     Precio DECIMAL(10, 2) NOT NULL
 );
-drop table if exists DosxUno;
-
-CREATE TABLE DosxUno(
-    PromocionID INT PRIMARY KEY AUTO_INCREMENT,
-    Nombre VARCHAR(255) NOT NULL,
-    Descripcion TEXT,
-    FechaInicio DATE NOT NULL,
-    FechaFin DATE NOT NULL
-);
-
-drop table if exists Productos_Promocion;
-CREATE TABLE Productos_Promocion (
-    AsociacionID INT PRIMARY KEY AUTO_INCREMENT,
-    PromocionID INT,
-    ProductoID INT,
-    FOREIGN KEY (PromocionID) REFERENCES DosxUno(PromocionID),
-    FOREIGN KEY (ProductoID) REFERENCES Productos(ProductoID)
-);
-
 
 -- Insertar productos
 INSERT INTO Productos (CodigoBarras, Nombre, Descripcion, Precio)
@@ -37,12 +18,35 @@ VALUES
 ('3456789012345', 'Azúcar', 'Azúcar refinada', 1.00),
 ('4567890123456', 'Café', 'Café molido', 5.99);
 
-select * from productos;
+
+drop table if exists DosxUno;
+
+CREATE TABLE DosxUno(
+    PromocionID INT PRIMARY KEY AUTO_INCREMENT,
+    codigoPromocion VARCHAR(50) UNIQUE,
+    Nombre VARCHAR(255) NOT NULL,
+    Descripcion TEXT,
+    FechaInicio DATE NOT NULL,
+    FechaFin DATE NOT NULL
+);
+
 -- Insertar promociones
-INSERT INTO DosxUno (Nombre, Descripcion, FechaInicio, FechaFin)
+INSERT INTO DosxUno (codigoPromocion, Nombre, Descripcion, FechaInicio, FechaFin)
 VALUES
-('Promo Pan y Refresco', '2x1', '2024-02-01', '2024-02-28'),
-('Promo Combo Café', '3x1', '2024-03-01', '2024-03-31');
+('PROMOO1', 'Promo Pan y Refresco', '2x1', '2024-02-01', '2024-02-28'),
+('PROMOO2', 'Promo Combo Café', '3x1', '2024-03-01', '2024-03-31');
+select * from DosxUno;
+
+
+drop table if exists Productos_Promocion;
+
+CREATE TABLE Productos_Promocion (
+    AsociacionID INT PRIMARY KEY AUTO_INCREMENT,
+    PromocionID INT,
+    ProductoID INT,
+    FOREIGN KEY (PromocionID) REFERENCES DosxUno(PromocionID),
+    FOREIGN KEY (ProductoID) REFERENCES Productos(ProductoID)
+);
 
 -- Asociar productos a las promociones
 INSERT INTO Productos_Promocion (PromocionID, ProductoID)
@@ -52,6 +56,8 @@ VALUES
 (2, 2), -- Asociar Pan a Promo Combo Café
 (2, 3), -- Asociar Azúcar a Promo Combo Café
 (2, 4); -- Asociar Café a Promo Combo Café
+
+
 
 
 
@@ -68,3 +74,5 @@ SELECT
 FROM Productos AS P
 JOIN Productos_Promocion AS PP ON P.ProductoID = PP.ProductoID
 JOIN DosxUno AS D ON PP.PromocionID = D.PromocionID;
+
+

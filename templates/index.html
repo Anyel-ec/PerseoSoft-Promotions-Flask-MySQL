@@ -30,60 +30,119 @@
                 <h4>Detalles de la Factura:</h4>
                 <p>Número de Factura: 12345</p>
                 <p>Fecha: 05/02/2024</p>
+                <input type="date" name="" id="">
             </div>
-            
-           <!-- Formulario de búsqueda -->
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <form class="d-flex" method="GET" action="{{ url_for('buscar_producto') }}">
-                    <input class="form-control me-2" type="text" name="codigo_barras" placeholder="Buscar producto" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit">Buscar</button>
-                </form>
+
+           
+
+            <!-- Formulario de búsqueda -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <form class="d-flex" method="GET" action="{{ url_for('buscar_producto') }}">
+                        <input class="form-control me-2" type="text" name="codigo_barras" placeholder="Buscar por código de barras"
+                            aria-label="Search">
+                        <input class="form-control me-2" type="text" name="codigo_promocion" placeholder="Buscar por código de promoción"
+                            aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                    </form>
+                </div>
             </div>
-        </div>
+
         </div>
 
         <hr>
-
-        <!-- Mostrar el término de búsqueda -->
+        <!-- Mostrar el término de búsqueda de producto -->
         {% if search_term %}
-            <div class="alert alert-info" role="alert">
-                Resultados para: {{ search_term }}
-            </div>
+        <div class="alert alert-info" role="alert">
+            Resultados para: {{ search_term }}
+        </div>
         {% endif %}
 
+        <!-- Mostrar el término de búsqueda de promoción -->
+        {% if promocion and productos_promocion %}
+        <div class="alert alert-info" role="alert">
+            Resultados para la promoción: {{ promocion['codigoPromocion'] }}
+        </div>
+        {% endif %}
+
+        <!-- Mostrar productos asociados a la promoción -->
         <div class="row mt-4">
             <div class="col">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio Unitario</th>
-                            <th>Total</th>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for row in data %}
-                            <tr>
-                                <td>{{ row[1] }}</td>
-                                <td>{{ row[2] }}</td>
-                                <td>{{ row[3] }}</td>
-                                <td>{{ row[4] }}</td>
-                            </tr>
+                        <tr>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                        </tr>
+                        {% endfor %}
+                        <!-- Mostrar productos asociados a la promoción -->
+                        {% for producto_promocion in productos_promocion %}
+                        <tr>
+                            <td>{{ producto_promocion['NombreProducto'] }}</td>
+                            <td>1</td>
+                            <td>{{ producto_promocion['Precio'] }}</td>
+                            <td>{{ producto_promocion['Precio'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if promocion and productos_promocion %}
+        <div class="alert alert-info" role="alert">
+            Resultados para la promoción: {{ promocion['codigoPromocion'] }}
+        </div>
+        {% endif %}
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-6">
+                <h4>Total: $70.00</h4>
+            </div>
+        </div>
+
+
+        <!-- Mostrar productos asociados a la promoción -->
+        <div class="row mt-4">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row['ProductoID'] }}</td>
+                            <td>{{ row['NombreProducto'] }}</td>
+                            <td>{{ row['DescripcionProducto'] }}</td>
+                            <td>{{ row['Precio'] }}</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-md-6 offset-md-6">
-                <h4>Total: $70.00</h4>
-            </div>
-        </div>
-    </div>
 
+
+
+
+
+    </div>
     <!-- Bootstrap JS y Popper.js (necesarios para ciertas funcionalidades de Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
