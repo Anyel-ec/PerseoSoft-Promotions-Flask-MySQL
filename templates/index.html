@@ -31,17 +31,27 @@
                 <p>Número de Factura: 12345</p>
                 <p>Fecha: 05/02/2024</p>
             </div>
-            <!-- Formulario de búsqueda -->
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="text" placeholder="Buscar producto" aria-label="Search">
-                        <button class="btn btn-outline-primary" type="button">Buscar</button>
-                    </form>
-                </div>
+            
+           <!-- Formulario de búsqueda -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <form class="d-flex" method="GET" action="{{ url_for('buscar_producto') }}">
+                    <input class="form-control me-2" type="text" name="codigo_barras" placeholder="Buscar producto" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                </form>
             </div>
         </div>
+        </div>
+
         <hr>
+
+        <!-- Mostrar el término de búsqueda -->
+        {% if search_term %}
+            <div class="alert alert-info" role="alert">
+                Resultados para: {{ search_term }}
+            </div>
+        {% endif %}
+
         <div class="row mt-4">
             <div class="col">
                 <table class="table table-bordered">
@@ -54,18 +64,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Producto A</td>
-                            <td>2</td>
-                            <td>$20.00</td>
-                            <td>$40.00</td>
-                        </tr>
-                        <tr>
-                            <td>Producto B</td>
-                            <td>1</td>
-                            <td>$30.00</td>
-                            <td>$30.00</td>
-                        </tr>
+                        {% for row in data %}
+                            <tr>
+                                <td>{{ row[1] }}</td>
+                                <td>{{ row[2] }}</td>
+                                <td>{{ row[3] }}</td>
+                                <td>{{ row[4] }}</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
