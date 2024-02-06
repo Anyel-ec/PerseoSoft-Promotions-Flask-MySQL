@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h1 class="text-center mb-4">Búsqueda de Producto</h1>
+                <form method="POST">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="producto" placeholder="Nombre del Producto">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-4">
+                    <h4>Descuentos:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="descuentoTipo" id="descuentoPorcentaje">
+                        <label class="form-check-label" for="descuentoPorcentaje">Descuento por porcentaje</label>
+                        <input class="form-control mt-2" type="number" name="porcentajeDescuento"
+                            placeholder="Ingrese el porcentaje">
+                    </div>
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="radio" name="descuentoTipo" id="descuentoEfectivo">
+                        <label class="form-check-label" for="descuentoEfectivo">Descuento en efectivo</label>
+                        <input class="form-control mt-2" type="number" name="montoDescuento"
+                            placeholder="Ingrese el monto">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="mb-4">
+                    <h4>Compre uno y llévese otro (BOGO):</h4>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bogoTipo" id="bogo2x1">
+                        <label class="form-check-label" for="bogo2x1">2x1 (Compra Dos, lleva Uno)</label>
+                    </div>
+                    <div id="camposAdicionales" style="display: none;">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto1" placeholder="Producto 1">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto2" placeholder="Producto 2">
+                        </div>
+                    </div>
+                    
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="bogoTipo" id="bogo3x1">
+                        <label class="form-check-label" for="bogo3x1">3x1 (Compra Tres y lleva uno)</label>
+                    </div>
+
+                    <div id="camposAdicionales3x1" style="display: none;">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto1" placeholder="Producto 1">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto2" placeholder="Producto 2">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto3" placeholder="Producto 3">
+                        </div>
+                    </div>
+
+
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="bogoTipo" id="bogo4x1">
+                        <label class="form-check-label" for="bogo4x1">4x1 (Compra Cuatro y lleva 1)</label>
+                    </div>
+                    <div id="camposAdicionales4x1" style="display: none;">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto1" placeholder="Producto 1">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto2" placeholder="Producto 2">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto3" placeholder="Producto 3">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="producto4" placeholder="Producto 4">
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="mb-4">
+                    <h4>Descuentos por volumen:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="volumenTipo" id="descuentoPorCantidad">
+                        <label class="form-check-label" for="descuentoPorCantidad">Descuento por cantidad</label>
+                        <input class="form-control mt-2" type="number" name="cantidadMinima"
+                            placeholder="Cantidad mínima">
+                        <input class="form-control mt-2" type="number" name="porcentajeDescuentoVolumen"
+                            placeholder="Porcentaje de descuento">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <!-- Tarjetas de fidelidad -->
+                <div class="mb-4">
+                    <h4>Tarjetas de fidelidad:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fidelidadTipo" id="puntosLealtad">
+                        <label class="form-check-label" for="puntosLealtad">Puntos de lealtad</label>
+                        <input class="form-control mt-2" type="number" name="puntosPorCompra"
+                            placeholder="Puntos por compra">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <!-- Reembolsos y reembolsos -->
+                <div class="mb-4">
+                    <h4>Reembolsos y reembolsos:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="reembolsoTipo" id="reembolso">
+                        <label class="form-check-label" for="reembolso">Reembolso</label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="reembolsoTipo" id="reembolsoPorCorreo">
+                        <label class="form-check-label" for="reembolsoPorCorreo">Reembolso por correo</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <!-- Regalos gratuitos o muestras -->
+                <div class="mb-4">
+                    <h4>Regalos gratuitos o muestras:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="regaloTipo" id="regaloConCompra">
+                        <label class="form-check-label" for="regaloConCompra">Regalo con compra</label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="regaloTipo" id="muestrasGratuitas">
+                        <label class="form-check-label" for="muestrasGratuitas">Muestras gratuitas</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <!-- Eventos y concursos -->
+                <div class="mb-4">
+                    <h4>Eventos y concursos:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="eventoTipo" id="sorteosYConcursos">
+                        <label class="form-check-label" for="sorteosYConcursos">Sorteos y concursos</label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="eventoTipo" id="eventosEspeciales">
+                        <label class="form-check-label" for="eventosEspeciales">Eventos especiales</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <!-- Envío gratuito -->
+                <div class="mb-4">
+                    <h4>Envío gratuito:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="envioTipo" id="envioGratuito">
+                        <label class="form-check-label" for="envioGratuito">Envío gratuito</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <!-- Financiamiento y programas de pago -->
+                <div class="mb-4">
+                    <h4>Financiamiento y programas de pago:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="financiamientoTipo"
+                            id="financiamientoAPlazos">
+                        <label class="form-check-label" for="financiamientoAPlazos">Financiamiento a plazos</label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="financiamientoTipo" id="programasDeCredito">
+                        <label class="form-check-label" for="programasDeCredito">Programas de crédito</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-6">
+                <!-- Ofertas flash y temporales -->
+                <div class="mb-4">
+                    <h4>Ofertas flash y temporales:</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ofertaTipo" id="ofertasFlash">
+                        <label class="form-check-label" for="ofertasFlash">Ofertas flash</label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="ofertaTipo" id="ofertasDelDia">
+                        <label class="form-check-label" for="ofertasDelDia">Ofertas del día</label>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <button class="btn btn-primary mt-4">Guardar Configuración</button>
+
+        </div>
+    </div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#bogo2x1').click(function() {
+            $('#camposAdicionales').toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#bogo3x1').click(function() {
+            $('#camposAdicionales3x1').toggle();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#bogo4x1').click(function() {
+            $('#camposAdicionales4x1').toggle();
+        });
+    });
+</script>
+
+
+</body>
+
+</html>
