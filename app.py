@@ -34,21 +34,23 @@ def buscar_producto():
 
         # Consulta SQL para buscar productos por código de barras o código de promoción
         query = """
-            SELECT P.ProductoID, P.Nombre AS NombreProducto, P.Descripcion AS DescripcionProducto, P.Precio
+            SELECT P.ProductoID, P.Nombre AS NombreProducto, P.Descripcion AS DescripcionProducto, P.Precio, 
+                   D.PromocionID, D.Nombre AS NombrePromocion, D.Descripcion AS DescripcionPromocion
             FROM Productos AS P
-            JOIN Productos_Promocion AS PP ON P.ProductoID = PP.ProductoID
-            JOIN DosxUno AS D ON PP.PromocionID = D.PromocionID
-            WHERE P.CodigoBarras = %s OR D.codigoPromocion = %s
+            LEFT JOIN Productos_Promocion AS PP ON P.ProductoID = PP.ProductoID
+            LEFT JOIN DosxUno AS D ON PP.PromocionID = D.PromocionID
+            WHERE P.CodigoBarras = %s
         """
 
         # Ejecutar la consulta
-        cur.execute(query, (codigo_barras, codigo_promocion))
+        cur.execute(query, (codigo_barras,))
 
         # Obtener resultados
         data = cur.fetchall()
 
-        # Imprimir resultados en la consola
-        print("Resultados de búsqueda de producto:", data)
+        # Imprimir resultados en la consola del servidor Flask
+        for row in data:
+            print(row)
 
         # Cerrar la conexión
         cur.close()
@@ -59,30 +61,8 @@ def buscar_producto():
         # Si hay un error, renderizar la plantilla con un mensaje de error
         return render_template('index.html', mensaje=f"Error en la búsqueda del producto: {str(e)}")
 
-    try:
-        # Obtener el código de barras del formulario
-        codigo_barras = request.args.get('codigo_barras')
 
-        # Crear una conexión y un cursor
-        cur = mysql.connection.cursor()
 
-        # Ejecutar una consulta para buscar el producto por código de barras
-        cur.execute("SELECT * FROM Productos WHERE CodigoBarras = %s", (codigo_barras,))
-
-        # Obtener resultados
-        data = cur.fetchall()
-
-        # Imprimir resultados en la consola
-        print("Resultados de búsqueda de producto:", data)
-
-        # Cerrar la conexión
-        cur.close()
-
-        # Renderizar la plantilla con los resultados
-        return render_template('index.html', data=data, mensaje="Búsqueda exitosa.")
-    except Exception as e:
-        # Si hay un error, renderizar la plantilla con un mensaje de error
-        return render_template('index.html', mensaje=f"Error en la búsqueda del producto: {str(e)}")
 
 @app.route('/buscar_promocion', methods=['GET'])
 def buscar_promocion():

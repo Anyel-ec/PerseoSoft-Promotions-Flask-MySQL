@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factura</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
 </head>
@@ -30,10 +30,8 @@
                 <h4>Detalles de la Factura:</h4>
                 <p>Número de Factura: 12345</p>
                 <p>Fecha: 05/02/2024</p>
-                <div class="input-group mb-3">
-                    <input type="date" class="form-control" name="fecha" id="fecha">
-                    <label class="input-group-text" for="fecha"><i class="bi bi-calendar"></i></label>
-                </div>            </div>
+                <input type="date" name="" id="">
+            </div>
 
            
 
@@ -43,8 +41,8 @@
                     <form class="d-flex" method="GET" action="{{ url_for('buscar_producto') }}">
                         <input class="form-control me-2" type="text" name="codigo_barras" placeholder="Buscar por código de barras"
                             aria-label="Search">
-                        <input class="form-control me-2" type="text" name="codigo_promocion" placeholder="Buscar por código de promoción"
-                            aria-label="Search">
+                        <!-- <input class="form-control me-2" type="text" name="codigo_promocion" placeholder="Buscar por código de promoción"
+                            aria-label="Search"> -->
                         <button class="btn btn-outline-primary" type="submit">Buscar</button>
                     </form>
                 </div>
@@ -73,10 +71,10 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Codigo</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
                             <th>Precio</th>
+                            <th>ID Producto</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,15 +86,7 @@
                             <td>{{ row[4] }}</td>
                         </tr>
                         {% endfor %}
-                        <!-- Mostrar productos asociados a la promoción -->
-                        {% for producto_promocion in productos_promocion %}
-                        <tr>
-                            <td>{{ producto_promocion['NombreProducto'] }}</td>
-                            <td>1</td>
-                            <td>{{ producto_promocion['Precio'] }}</td>
-                            <td>{{ producto_promocion['Precio'] }}</td>
-                        </tr>
-                        {% endfor %}
+                        
                     </tbody>
                 </table>
             </div>
@@ -110,14 +100,54 @@
             <div class="col-md-6 offset-md-6">
                 <h4>Total: $70.00</h4>
             </div>
-        </div>   
+        </div>
+
+   <!-- Agrega un botón o enlace en cada fila de la tabla para abrir el modal -->
+{% for row in data %}
+<tr>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+    <td>{{ row[3] }}</td>
+    <td>{{ row[4] }}</td>
+    <td>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#promocionesModal{{ row[0] }}">
+            Ver promociones
+        </button>
+    </td>
+</tr>
+
+<!-- Modal para mostrar las promociones asociadas -->
+<div class="modal fade" id="promocionesModal{{ row[0] }}" tabindex="-1" aria-labelledby="promocionesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="promocionesModalLabel">Promociones para {{ row[1] }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Mostrar las promociones asociadas -->
+                <ul>
+                    {% for data in data %}
+                    <li>{{ data[5] }} - {{ data[6] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
+</div>
+{% endfor %}
+
+
+
     <!-- Bootstrap JS y Popper.js (necesarios para ciertas funcionalidades de Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/bootstrap-icons.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

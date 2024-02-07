@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head> 
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" onclick="mostrarCampos()">Mostrar campos adicionales</button>
+                <div id="camposAdicionales3x1" style="display: none;">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="producto1" placeholder="Producto 1">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="producto2" placeholder="Producto 2">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="producto3" placeholder="Producto 3">
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="guardarCambios()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Necesario para los modales) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function mostrarCampos() {
+            document.getElementById('camposAdicionales3x1').style.display = 'block';
+        }
+
+        function guardarCambios() {
+            // Agregar código y descripción para la promoción
+            var codigoPromocion = "PROMO3X1";
+            var descripcionPromocion = "¡Compra 2 productos y llévate 1 gratis!";
+            
+            // Ejemplo de cómo utilizar el código y la descripción
+            console.log("Se ha guardado la promoción con el código: " + codigoPromocion + " y la descripción: " + descripcionPromocion);
+            
+            // Aquí podrías enviar los datos al servidor o realizar otras acciones necesarias
+        }
+    </script>
+</body>
+</html>
